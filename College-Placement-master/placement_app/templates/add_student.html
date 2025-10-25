@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="row">
+   <div class="col-5 m-2 border border-secondary  p-4">
+      <h1 class="text-center text-light p-4 bg-info">Register Student</h1>
+      <form method="post" action="">
+         {% csrf_token %}
+         {{ form.as_p }}
+         <button type="submit" class="btn btn-success form-control">Register</button>
+      </form>
+   </div>
+   <div class="col-6 m-2 border border-secondary  p-4">
+      <h1 class="text-center text-light border border-info p-4 bg-secondary">Students List</h1>
+      <table class="table table-striped">
+         <thead>
+            <tr>
+               <th scope="col">S No.</th>
+               <th scope="col">Roll Number</th>
+               <th scope="col">Name</th>
+               <th scope="col">Email</th>
+               <th scope="col">Branch</th>
+               <th scope="col">GPA</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for student in students %}
+            <tr>
+               <th scope="row">{{ forloop.counter }}.</th>
+               <td>{{ student.roll_number }}</td>
+               <td>{{ student.name }}</td>
+               <td>{{ student.email }}</td>
+               <td>{{ student.branch }}</td>
+               <td>{{ student.gpa }}</td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
+</div>
+{% endblock body %}
+{% block js %}
+<script>
+   $(document).ready(function() {
+     console.log("document ready");
+     var response = "{{ res|escapejs }}"; 
+     console.log(response);
+     if (response) {
+       alert(response);
+     }
+   });
+</script>
+{% endblock js %}

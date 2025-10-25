@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="row">
+   <div class="col-5 m-2 border border-secondary  p-4">
+      <h1 class="text-center text-light p-4 bg-info">Placement offer</h1>
+      <form method="post" action="">
+         {% csrf_token %}
+         {{ form.as_p }}
+         <button type="submit" class="btn btn-success form-control">Submit</button>
+      </form>
+   </div>
+   <div class="col-6 m-2 border border-secondary  p-4">
+      <h1 class="text-center text-light border border-info p-4 bg-secondary">Placements Don</h1>
+      <table class="table table-striped">
+         <thead>
+            <tr>
+               <th scope="col">S No.</th>
+               <th scope="col">Employee Name</th>
+               <th scope="col">Placement_date</th>
+               <th scope="col">Offered_salary</th>
+            </tr>
+         </thead>
+         <tbody>
+
+             {% for data in placements_data %}
+             <tr>
+                <th scope="row">{{ forloop.counter }}.</th>
+                <td>{{data.interview}}</td>
+                <td>{{data.placement_date}}</td>
+                <td>{{data.offered_salary}}</td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
+</div>
+{% endblock body %}
+{% block js %}
+<script>
+   $(document).ready(function() {
+     console.log("document ready");
+     var response = "{{ res|escapejs }}"; 
+     console.log(response);
+     if (response) {
+       alert(response);
+     }
+   });
+</script>
+{% endblock js %}
